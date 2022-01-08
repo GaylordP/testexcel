@@ -11,41 +11,6 @@
     {% endblock %}
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                ADriver
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Fermer">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a
-                        class="nav-link {% if 'index' == app.request.get('_route') %} active{% endif %}"
-                        {% if 'index' == app.request.get('_route') %} aria-current="page"{% endif %}
-                        href="{{ path('index') }}"
-                    >
-                        Accueil
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link {% if 'new' == app.request.get('_route') %} active{% endif %}"
-                        {% if 'new' == app.request.get('_route') %} aria-current="page"{% endif %}
-                        href="{{ path('new') }}"
-                    >
-                        Ajouter un article
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/api">
-                        Api
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
     <div class="container">
         <h1 class="h2">
             {{ block('title') }}
@@ -69,19 +34,9 @@
                     </li>
                     <li>
                         <code>
-                            npm run watch
+                            npm run dev
                         </code>
                         ou équivalent
-                    </li>
-                    <li>
-                        <code>
-                            php bin/console doctrine:database:create
-                        </code>
-                    </li>
-                    <li>
-                        <code>
-                            php bin/console d:s:u --force
-                        </code>
                     </li>
                 </ul>
             </div>
@@ -91,40 +46,45 @@
                 Tests :
             </h2>
             <div class="card-body">
-                <ul class="mb-0">
-                    <li>
-                        <code>
-                            php bin/console doctrine:fixtures:load
-                        </code>
-                    </li>
+                <h3 class="h6">
+                    Préamble :
+                </h3>
+                <p>
+                    Les erreurs sont bien retournées en JSON à l'aide de deux classes que j'ai créé : <code>App/Exception/HttpJsonException</code> et <code>App/EventListener/ExceptionListener</code>.
+                </p>
+                <h3 class="h6">
+                    Commande :
+                </h3>
+                <ul>
                     <li>
                         <code>
                             ./vendor/bin/phpunit
                         </code>
                     </li>
                 </ul>
-            </div>
-        </div>
-        <div class="card mt-3 mb-3">
-            <h2 class="card-header card-title h6">
-                Ressenti personnel :
-            </h2>
-            <div class="card-body">
-                <p>
-                    Devoir partir d'un projet totalement à zéro prend un temps considérable peut-être un peu inutile, notamment par l'installation de chacun des composants et surtout la mise en place des principaux éléments front.
-                </p>
-                <p>
-                    Dans un projet réel, énormément de composants front (les éléments Twig/React, les fonctions javascript d'appels aux API et la gestion des erreurs) sont isolés : les isoler prend du temps en amont, mais en fait gagner énormément sur le long terme. Vu qu'il s'agit d'un projet "neuf", de fait, on se retrouve à accorder beaucoup de temps à ces éléments basiques.
-                </p>
-                <p>
-                    J'ai bien compris qu'il ne fallait pas s'attarder sur le front mais il est malgré tout nécessaire (loader, affichage des erreurs, requêtes et traitement de leurs retours en JS, etc.).
-                </p>
-                <p>
-                    Il aurait fallu plus de temps pour mettre en place tous les éléments idéaux (certains détaillés ci-après) mais nécessaire à un projet pleinement fonctionnel. Paradoxalement, une fois pleinement fonctionnel, doubler les fonctionnalités (ajouter des catégories aux articles par exemple ou des droits d'accès) serait très rapide, ce qui illustre un peu mon propos sur le temps un peu inutile nécessaire en amont pour commencer à vraiment utiliser un projet.
-                </p>
-                <p class="mb-0">
-                    En résumé je reconnais que ce test ne m'a pas rendu serein (ni dans sa conception ni dans son résultat). Pas du tout par sa complexité (hier soir j'ai eu un test sur le composant Mercure pour l'actualisation en temps réel des pages par exemple), mais par la nécessité pour un petit projet neuf dans un délai imparti, de devoir faire un peu tout (du Symfony, du Bootstrap, du JS, du React, du Css, une API Back, des requêtes à l'API + leur interprétation, des tests Back, des tests fronts).
-                </p>
+                <h3 class="h6">
+                    Tests réalisés :
+                </h3>
+                <ul class="mb-0">
+                    <li>
+                        Un fichier excel vide ;
+                    </li>
+                    <li>
+                        Un fichier excel avec des valeurs négatives ;
+                    </li>
+                    <li>
+                        Un fichier excel sans titre mais avec des notes ;
+                    </li>
+                    <li>
+                        Un fichier excel avec titre mais sans note ;
+                    </li>
+                    <li>
+                        Un fichier excel avec des notes invalides (<code>string</code>) ;
+                    </li>
+                    <li>
+                        Un fichier valide simple.
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="card mt-3 mb-3">
@@ -142,20 +102,14 @@
                     <li>
                         Webpack Encore ;<br>
                         <small>
-                            Sass et JSX activés
+                            Sass activé
                         </small>
                     </li>
                     <li>
                         Bootstrap 5 ;
                     </li>
                     <li>
-                        React JS ;
-                    </li>
-                    <li>
-                        Axios pour les requêtes ;
-                    </li>
-                    <li>
-                        date-fns pour les dates.
+                        PhpSpreadsheet.
                     </li>
                 </ul>
                 <h3 class="h6">
@@ -163,67 +117,38 @@
                 </h3>
                 <ul class="mb-0">
                     <li>
-                        Au vu du temps accordé et disponible, je ne me suis pas attardé sur le front et l'affichage ;
+                        Je ne me suis pas attardé sur le front et l'affichage ;
                     </li>
                     <li>
-                        Au vu du temps accordé et disponible, un seul environnement créé (<code>dev</code>) y compris pour les tests. En situation réelle, il y en aurait au moins trois (<code>dev</code>/<code>test</code>/<code>prod</code>) avec l'utilisation des migrations en production ;
-                    </li>
-                    <li>
-                        Utilisation de Sqlite pour vous éviter de créer une base de données MySQL inutilement ;
-                    </li>
-                    <li>
-                        Impossible d'utiliser <code>ramsey/uuid-doctrine</code> sans accès MySQL. Dans un projet réel je n'aurais jamais utilisé des ID mais des UUID ;
-                    </li>
-                    <li>
-                        Idéalement, dans un projet réel et sous réserve d'approbation, je n'aurais pas utilisé Twig mais exclusivement React JS ;
-                        <br>
-                        <small>
-                            (Sinon du Javascript/JSX natif, ou au pire jQuery)
-                        </small>
+                        Un seul environnement créé (<code>dev</code>) y compris pour les tests. En situation réelle, il y en aurait au moins trois (<code>dev</code>/<code>test</code>/<code>prod</code>) voir <code>benchmark</code> en plus ;
                     </li>
                     <li>
                         Idéalement, dans un projet réel, les textes seraient isolés pour être traductible (Symfony Translation si Twig, i18next si React) ;
                     </li>
                     <li>
-                        Parfois, les composants React ne sont pas isolés car l'intérêt est minime ici (exemple : <code>Row</code> dans <code>/assets/App/IndexScreen</code>) : jamais je n'aurais fait ça en situation réelle.
+                        Je n'aurais pas défini le label dans le constructeur de <code>AbstractQuestion</code> mais plutôt à l'aide d'un <code>setLabel()</code>, car devoir créer une variable <code>$questionLabel = null;</code> (ligne 19 de <code>App/Service/QuestionExcelReader</code>) pour la définir ensuite m'a un peu dérangé. J'aurais préféré instancier l'objet <code>Question</code> en amont puis appeler un <code>setLabel()</code> à la ligne 26. Je sais que j'aurais pu directement instancier l'objet à la ligne 26 mais ça ne m'aurait pas non plus satisfait.
+                    </li>
+                    <li>
+                        Léger doute sur les deux <code>trim()</code> à la ligne 26 de <code>App/Service/QuestionExcelReader</code>, je ne sais pas trop quels sont les différentes possibilités de titre. En situation réelle, j'aurais probablement utilisé une expression régulière en fonction des instructions.
+                    </li>
+                    <li>
+                        Je n'aurais pas exposé <code>getMin()/Max/Mean</code> en public puisque vous souhaitez un sous-tableau "statistics".
                         <br>
-                        <small>
-                            (Comme en Twig : je fais toujours hériter les éléments principaux d'un parent (Boutons, Titres / Icônes).)
-                        </small>
+                        De fait, je dois les supprimer manuellement dans <code>App/Normalizer/QuestionExcelReader</code> à la ligne 27.
                     </li>
                     <li>
-                        Même remarque pour les requêtes à l'API (exemple : requête axios dans <code>/assets/App/IndexScreen</code>). Dans un projet réel elles seraient isolées et les résultats transmis à un <code>reducer</code> via <code>useContext()</code> pour éviter de refaire les requêtes à chaque actualisation et économiser des ressources.
-                    </li>
-                    <li>
-                        Composant <code>Slugger</code> uniquement en <code>prePersist</code> car aucune modification d'article souhaité ;
-                    </li>
-                    <li>
-                        Il y a bien un loader au chargement des données dans l'index (le chargement des données est trop rapide ici pour être perceptible) ;
+                        En situation réelle et sous réserve d'approbation, j'aurais créé dans <code>AbstractQuestion</code> des <code>addValue()</code>/<code>getValues()</code> pour retrouver toutes les notes.
                         <br>
-                        <small>
-                            Pas de loader pour l'ajout/suppression, le manque de temps m'imposait de prioriser. En temps normal, après le clic je récupère le texte du boutton, qui est remplacé par un loader, lequel disparait à la fin du chargement (erreur ou non).
-                        </small>
+                        Ici j'ai « simplifié » à l'aide d'un <code>setValue()</code> à la ligne 53 de <code>App/Service/QuestionExcelReader</code>.
+                        <br>
+                        Des <code>addValue()</code> directement à la ligne 35 du même fichier aurait été top, mais avec mon commentaire ci-dessus à propos du label ça perdait un peu de son intérêt.
                     </li>
                     <li>
-                        Suppression :
-                        <ul>
-                            <li>
-                                En situation réelle, je demande toujours une confirmation avant suppression ;
-                            </li>
-                            <li>
-                                En situation réelle, je ne supprime jamais les données mais j'utilise des champs <code>deletedAt</code>/<code>deletedBy</code>.
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        En situation réel, JEST serait utilisé pour les tests front/React.
+                        Je n'ai pas fait de tests sur le formulaire Web car j'ai compris après que ce que vous souhaitiez pas d'interface HTML.
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-    {% endblock %}
   </body>
 </html>

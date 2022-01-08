@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
-use App\Form\ArticleType;
+use App\Form\UploadExcelType;
+use App\Normalizer\QuestionNormalizer;
+use App\Service\QuestionExcelReader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,42 +17,40 @@ class AppController extends AbstractController
      * @Route(
      *     "/",
      *     name="index",
-     *     methods="GET"
-     * )
-     */
-    public function index(): Response {
-        return $this->render('app/index.html.twig');
-    }
-
-    /**
-     * @Route(
-     *     "/article/{slug}",
-     *     name="show",
-     *     methods="GET"
-     * )
-     */
-    public function show(
-        Article $article
-    ): Response {
-        return $this->render('app/show.html.twig', [
-            'article' => $article,
-        ]);
-    }
-
-    /**
-     * @Route(
-     *     "/creer",
-     *     name="new",
      *     methods={"GET", "POST"}
      * )
      */
-    public function new(): Response
-    {
-        $article = new Article();
+    public function index(
+        Request $request,
+        QuestionExcelReader $questionExcelReader,
+        QuestionNormalizer $questionNormalizer
+    ): Response {
+        $form = $this->createForm(UploadExcelType::class);
+        $form->handleRequest($request);
 
-        $form = $this->createForm(ArticleType::class, $article);
+        $uploadedExcelFile = null;
 
-        return $this->render('app/new.html.twig', [
+        if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedExcelFile = $form->get('file')->getData();
+        } else if (
+            !empty($request->files)
+                &&
+            1 === count($request->files)
+        ) {
+            $uploadedExcelFile = $request->files->get(0);
+        }
+
+        if (null !== $uploadedExcelFile) {
+            $question = $questionExcelReader
+                ->read($uploadedExcelFile)
+            ;
+
+            return new JsonResponse(
+                $questionNormalizer->normalize($question)
+            );
+        }
+
+        return $this->render('app/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }

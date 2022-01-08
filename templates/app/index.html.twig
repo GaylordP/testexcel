@@ -1,33 +1,19 @@
 {% extends 'app/_template.html.twig' %}
 
 {% block title %}
-    Liste des articles
+  Résultats des questionnaires
 {% endblock %}
 
 {% block content %}
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">
-          Titre
-        </th>
-        <th scope="col">
-          Date de création
-        </th>
-        <th scope="col">
-          Auteur
-        </th>
-        <th scope="col">
-          Options
-        </th>
-      </tr>
-    </thead>
-    <tbody id="table-content">
-    </tbody>
+  <div class="card">
+    <div class="card-body">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type"submit" class="btn btn-primary">
+          Envoyer
+        </button>
+        {{ form_end(form) }}
+    </div>
+  </div>
   </table>
-{% endblock %}
-
-{% block javascripts %}
-  {{ parent() }}
-  {{ encore_entry_script_tags('index-screen') }}
 {% endblock %}
