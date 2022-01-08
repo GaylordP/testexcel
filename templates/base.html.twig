@@ -132,7 +132,7 @@
                         Je n'aurais pas défini le label dans le constructeur de <code>AbstractQuestion</code> mais plutôt à l'aide d'un <code>setLabel()</code>, car devoir créer une variable <code>$questionLabel = null;</code> (ligne 27 de <code>App/Service/QuestionExcelReader</code>) pour la définir ensuite m'a un peu dérangé. J'aurais préféré instancier l'objet <code>Question</code> en amont puis appeler un <code>setLabel()</code> à la ligne 34. Je sais que j'aurais pu directement instancier l'objet à la ligne 34 mais ça ne m'aurait pas non plus satisfait.
                     </li>
                     <li>
-                        Léger doute sur les deux <code>trim()</code> à la ligne 34 de <code>App/Service/QuestionExcelReader</code>, je ne sais pas trop quels sont les différentes possibilités de titre. En situation réelle, j'aurais probablement utilisé une expression régulière en fonction des instructions.
+                        Léger doute sur les deux <code>trim()</code> à la ligne 34 de <code>App/Service/QuestionExcelReader</code>, je ne connais pas les différentes possibilités de titre. En situation réelle, j'aurais probablement utilisé une expression régulière en fonction des instructions.
                     </li>
                     <li>
                         Je n'aurais pas exposé <code>getMin()/Max/Mean</code> en public puisque vous souhaitez un sous-tableau "statistics".
