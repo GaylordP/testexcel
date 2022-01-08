@@ -129,10 +129,10 @@
                         Idéalement, dans un projet réel, les textes seraient isolés pour être traductible (Symfony Translation si Twig, i18next si React) ;
                     </li>
                     <li>
-                        Je n'aurais pas défini le label dans le constructeur de <code>AbstractQuestion</code> mais plutôt à l'aide d'un <code>setLabel()</code>, car devoir créer une variable <code>$questionLabel = null;</code> (ligne 19 de <code>App/Service/QuestionExcelReader</code>) pour la définir ensuite m'a un peu dérangé. J'aurais préféré instancier l'objet <code>Question</code> en amont puis appeler un <code>setLabel()</code> à la ligne 26. Je sais que j'aurais pu directement instancier l'objet à la ligne 26 mais ça ne m'aurait pas non plus satisfait.
+                        Je n'aurais pas défini le label dans le constructeur de <code>AbstractQuestion</code> mais plutôt à l'aide d'un <code>setLabel()</code>, car devoir créer une variable <code>$questionLabel = null;</code> (ligne 27 de <code>App/Service/QuestionExcelReader</code>) pour la définir ensuite m'a un peu dérangé. J'aurais préféré instancier l'objet <code>Question</code> en amont puis appeler un <code>setLabel()</code> à la ligne 43. Je sais que j'aurais pu directement instancier l'objet à la ligne 34 mais ça ne m'aurait pas non plus satisfait.
                     </li>
                     <li>
-                        Léger doute sur les deux <code>trim()</code> à la ligne 26 de <code>App/Service/QuestionExcelReader</code>, je ne sais pas trop quels sont les différentes possibilités de titre. En situation réelle, j'aurais probablement utilisé une expression régulière en fonction des instructions.
+                        Léger doute sur les deux <code>trim()</code> à la ligne 34 de <code>App/Service/QuestionExcelReader</code>, je ne sais pas trop quels sont les différentes possibilités de titre. En situation réelle, j'aurais probablement utilisé une expression régulière en fonction des instructions.
                     </li>
                     <li>
                         Je n'aurais pas exposé <code>getMin()/Max/Mean</code> en public puisque vous souhaitez un sous-tableau "statistics".
@@ -142,7 +142,7 @@
                     <li>
                         En situation réelle et sous réserve d'approbation, j'aurais créé dans <code>AbstractQuestion</code> des <code>addValue()</code>/<code>getValues()</code> pour retrouver toutes les notes.
                         <br>
-                        Ici j'ai « simplifié » à l'aide d'un <code>setValue()</code> à la ligne 53 de <code>App/Service/QuestionExcelReader</code>.
+                        Ici j'ai « simplifié » à l'aide d'un <code>setValue()</code> à la ligne 61 de <code>App/Service/QuestionExcelReader</code>.
                         <br>
                         Des <code>addValue()</code> directement à la ligne 35 du même fichier aurait été top, mais avec mon commentaire ci-dessus à propos du label ça perdait un peu de son intérêt.
                     </li>
